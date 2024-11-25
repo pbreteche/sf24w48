@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Service\HeavyDataComputer;
-use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\Cache;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
@@ -17,6 +17,7 @@ use Symfony\Contracts\Cache\TagAwareCacheInterface;
 class DefaultController extends AbstractController
 {
     #[Route('/')]
+    #[Cache(expires: '+1 hour', public: true)]
     public function index(
         CacheInterface $cache,
         TagAwareCacheInterface $myDedicatedCache,
