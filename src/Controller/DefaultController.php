@@ -16,12 +16,17 @@ class DefaultController extends AbstractController
     #[Route('/')]
     public function index(
         CacheInterface $cache,
+        CacheInterface $myDedicatedCache,
         HeavyDataComputer $dataComputer,
     ): Response {
         $heavyComputedData = $cache->get('heavy-computed-data', function (ItemInterface $item) use ($dataComputer) {
             $item->expiresAfter(3600);
 
             return $dataComputer->compute();
+        });
+
+        $myDedicatedCache->get('another-computed-data', function (ItemInterface $item) {
+           return true;
         });
 
         dump($heavyComputedData);
