@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Event\LocaleUpdatedEvent;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -17,6 +20,7 @@ class LocaleController extends AbstractController
     public function set(
         Request $request,
         ValidatorInterface $validator,
+        EventDispatcherInterface $eventDispatcher,
     ): Response {
         $locale = $request->request->get('locale');
         $violationList = $validator->validate($locale, new Locale());
@@ -24,6 +28,7 @@ class LocaleController extends AbstractController
             throw new \InvalidArgumentException('Invalid locale');
         }
         $request->getSession()->set('locale', $locale);
+        $eventDispatcher->dispatch(new LocaleUpdatedEvent($locale));
 
         return $this->redirectToRoute('app_default_index');
     }
