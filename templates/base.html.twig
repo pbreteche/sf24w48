@@ -11,16 +11,16 @@
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
-    <body>
-    <form action="{{ path('app_locale_set') }}" method="post">
-        <label for="locale-selector">Langue</label>
-        <select name="locale" id="locale-selector">
+    <body class="container">
+    <form class="row row-cols-lg-auto" action="{{ path('app_locale_set') }}" method="post">
+        <label class="form-label" for="locale-selector">Langue</label>
+        <select class="form-select" name="locale" id="locale-selector">
             <option value="fr">{{ 'fr' | locale_name }}</option>
             <option value="en_US">{{ 'en_US' | locale_name }}</option>
             <option value="es">{{ 'es' | locale_name }}</option>
             <option value="de">{{ 'de' | locale_name }}</option>
         </select>
-        <button>Valider</button>
+        <button class="btn btn-primary">Valider</button>
     </form>
     <p>{{ app.locale | locale_name | capitalize }}</p>
 
