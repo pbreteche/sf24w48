@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\EventListener\ContactListener;
 use App\Form\widget\SirenType;
 use App\Model\Contact;
 use App\Model\ContactType as ModelContactType;
@@ -15,6 +16,11 @@ use function Symfony\Component\String\u;
 
 class ContactType extends AbstractType
 {
+    public function __construct(
+        private readonly ContactListener $contactListener,
+    ) {
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -40,6 +46,7 @@ class ContactType extends AbstractType
                 }
             })
             ->addEventListener(FormEvents::SUBMIT, self::onSubmit(...))
+            ->addEventListener(FormEvents::POST_SUBMIT, $this->contactListener->postSubmit(...))
         ;
     }
 
