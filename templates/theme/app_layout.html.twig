@@ -4,3 +4,8 @@
     {{ parent() }}
     {% if required %}<span class="badge text-bg-secondary">Requis</span>{% endif %}
 {% endblock %}
+
+{% block siren_help %}
+    <p>Voir : <a href="https://entreprendre.service-public.fr/vosdroits/F32135">service-public.fr</a></p>
+    {{- form_help(form) -}}
+{% endblock %}

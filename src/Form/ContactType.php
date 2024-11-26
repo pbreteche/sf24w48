@@ -2,11 +2,10 @@
 
 namespace App\Form;
 
+use App\Form\widget\SirenType;
 use App\Model\Contact;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ContactType extends AbstractType
@@ -19,6 +18,10 @@ class ContactType extends AbstractType
             ->add('email')
             ->add('phone')
             ->add('birthdate')
+            ->add('siren', SirenType::class, [
+                'mapped' => false,
+                'help' => 'Mettre le siren de la société mère.'
+            ])
         ;
     }
 
