@@ -1,0 +1,6 @@
+{% use 'bootstrap_5_horizontal_layout.html.twig' %}
+
+{% block form_label_content %}
+    {{ parent() }}
+    {% if required %}<span class="badge text-bg-secondary">Requis</span>{% endif %}
+{% endblock %}
