@@ -53,6 +53,13 @@ class DateRangeType extends AbstractType implements DataMapperInterface
     {
         $forms = iterator_to_array($forms);
 
+        $from = $forms['from']->getData();
+        $to =$forms['to']->getData();
+
+        if (is_null($from) || is_null($to)) {
+            return;
+        }
+
         $viewData = new DateRange(
             $forms['from']->getData(),
             $forms['to']->getData(),
