@@ -15,14 +15,8 @@ class DateRangeType extends AbstractType implements DataMapperInterface
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('from', DateType::class, [
-                'widget' => 'single_text',
-                'input' => 'datetime_immutable'
-            ])
-            ->add('to', DateType::class, [
-                'widget' => 'single_text',
-                'input' => 'datetime_immutable'
-            ])
+            ->add('from', DateType::class)
+            ->add('to', DateType::class)
             ->setDataMapper($this)
         ;
     }
