@@ -13,14 +13,15 @@ class ContactType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('lastName')
-            ->add('firstName')
-            ->add('email')
+            ->add('lastName', options: ['required' => false])
+            ->add('firstName', options: ['required' => false])
+            ->add('email', options: ['required' => false])
             ->add('phone')
             ->add('birthdate')
             ->add('siren', SirenType::class, [
                 'mapped' => false,
-                'help' => 'Mettre le siren de la société mère.'
+                'help' => 'Mettre le siren de la société mère.',
+                'required' => false,
             ])
         ;
     }
