@@ -9,3 +9,10 @@
     <p>Voir : <a href="https://entreprendre.service-public.fr/vosdroits/F32135">service-public.fr</a></p>
     {{- form_help(form) -}}
 {% endblock %}
+
+{% block date_range_widget %}
+    <div class="row row-cols-lg-auto">
+        {{ form_row(form.from) }}
+        {{ form_row(form.to) }}
+    </div>
+{% endblock %}
