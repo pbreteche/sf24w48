@@ -15,9 +15,10 @@ class Contact
     private ?string $email = null;
 
     private ?string $phone = null;
+    private ContactType $type = ContactType::Person;
 
     #[Assert\LessThan('today')]
-    private ?\DateTime $birthdate = null;
+    private ?\DateTimeImmutable $birthdate = null;
 
     public function getEmail(): ?string
     {
@@ -75,6 +76,18 @@ class Contact
     public function setBirthdate(?\DateTimeImmutable $birthdate): Contact
     {
         $this->birthdate = $birthdate;
+
+        return $this;
+    }
+
+    public function getType(): ContactType
+    {
+        return $this->type;
+    }
+
+    public function setType(ContactType $type): Contact
+    {
+        $this->type = $type;
 
         return $this;
     }

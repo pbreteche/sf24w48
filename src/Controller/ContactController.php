@@ -7,6 +7,7 @@ namespace App\Controller;
 use App\Form\ContactType;
 use App\Form\LeavePeriodType;
 use App\Model\Contact;
+use App\Model\ContactType as ModelContactType;
 use App\Model\LeavePeriod;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,6 +21,7 @@ class ContactController extends AbstractController
         Request $request,
     ): Response {
         $contact = new Contact();
+        $contact->setType(ModelContactType::Company);
         $form = $this->createForm(ContactType::class, $contact);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
