@@ -2,9 +2,12 @@
 
 namespace App\Model;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 class LeavePeriod
 {
     private ?Contact $contact = null;
+    #[Assert\Valid]
     private ?DateRange $dateRange = null;
 
     public function getContact(): ?Contact

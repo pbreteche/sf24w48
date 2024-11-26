@@ -17,11 +17,11 @@ class DateRangeType extends AbstractType implements DataMapperInterface
         $builder
             ->add('from', DateType::class, [
                 'widget' => 'single_text',
-                'input_format' => 'datetime_immutable'
+                'input' => 'datetime_immutable'
             ])
             ->add('to', DateType::class, [
                 'widget' => 'single_text',
-                'input_format' => 'datetime_immutable'
+                'input' => 'datetime_immutable'
             ])
             ->setDataMapper($this)
         ;

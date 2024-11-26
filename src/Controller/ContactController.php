@@ -36,7 +36,9 @@ class ContactController extends AbstractController
         Request $request,
     ): Response {
         $leavePeriod = new LeavePeriod();
-        $form = $this->createForm(LeavePeriodType::class, $leavePeriod);
+        $form = $this->createForm(LeavePeriodType::class, $leavePeriod, [
+            'validation_groups' => ['Default', 'planning']
+        ]);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
