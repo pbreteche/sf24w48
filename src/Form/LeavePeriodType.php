@@ -2,7 +2,6 @@
 
 namespace App\Form;
 
-use App\Form\widget\DateRangeType;
 use App\Model\LeavePeriod;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,9 +15,7 @@ class LeavePeriodType extends AbstractType
             ->add('contact', ContactType::class, [
                 'required' => false,
             ])
-            ->add('dateRange', DateRangeType::class, [
-                'required' => false,
-            ])
+            ->add('dateRange')
         ;
     }
 
