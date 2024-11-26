@@ -62,8 +62,10 @@ class ContactType extends AbstractType
      */
     public function onSubmit(SubmitEvent $event): void
     {
-        /** @var Contact $data */
         $data = $event->getData();
+        if (!$data instanceof Contact) {
+            return;
+        }
         $form = $event->getForm();
 
         $data->setLastName(u($form->get('lastName')->getData())->title(allWords: true));
