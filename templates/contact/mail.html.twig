@@ -1,9 +1,21 @@
+{% apply inline_css %}
+<style>
+    .important {
+        font-size: 1.25em;
+        font-style: italic;
+    }
+
+    .embed {
+        max-height: 4em;
+    }
+</style>
 <p>Bonjour,</p>
 
-<p>Une demande de congé a été posée.</p>
+<p class="important">Une demande de congé a été posée.</p>
 <p>
 Elle concerne la période du {{ leave_period.dateRange.from | format_date }}
 au {{ leave_period.dateRange.to | format_date }}.
 </p>
 
-<p>Le logo : <img src="cid:logo" alt="Logo symfony"></p>
+<p>Le logo : <img src="cid:logo" alt="Logo symfony" class="embed"></p>
+{% endapply %}
