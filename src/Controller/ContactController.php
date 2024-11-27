@@ -9,6 +9,7 @@ use App\Form\LeavePeriodType;
 use App\Model\Contact;
 use App\Model\ContactType as ModelContactType;
 use App\Model\LeavePeriod;
+use App\Service\ContactDeliver;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,13 +26,14 @@ class ContactController extends AbstractController
     #[Route('/contact/new', methods: ['GET', 'POST'])]
     public function new(
         Request $request,
+        ContactDeliver $deliver,
     ): Response {
         $contact = new Contact();
         $contact->setType(ModelContactType::Company);
         $form = $this->createForm(ContactType::class, $contact);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            dump($contact);
+            $deliver->deliver($contact);
         }
 
         return $this->render('contact/new.html.twig', [
