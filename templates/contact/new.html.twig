@@ -6,6 +6,20 @@
     {{ form_widget(form) }}
     <button class="btn btn-primary">Valider</button>
     {{ form_end(form) }}
+
+    <article data-controller="hello">
+        <h1>First Stimulus example</h1>
+        <input type="number" data-hello-target="quantity">
+        <button data-action="click->hello#convert">Compute</button>
+        <output data-hello-target="result"></output>
+        <label for="unit-select">Unit selector</label>
+        <select id="unit-select" data-hello-target="direction">
+            <option value="px-pt">Pixel to Point</option>
+            <option value="pt-px">Point to Pixel</option>
+            <option value="px-in">Pixel to Inch</option>
+            <option value="pt-in">Point to Inch</option>
+        </select>
+    </article>
 {% endblock %}
 
 {% block importmap %}
