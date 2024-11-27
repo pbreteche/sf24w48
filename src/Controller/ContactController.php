@@ -9,9 +9,12 @@ use App\Form\LeavePeriodType;
 use App\Model\Contact;
 use App\Model\ContactType as ModelContactType;
 use App\Model\LeavePeriod;
+use Masterminds\HTML5;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Attribute\Route;
 
 class ContactController extends AbstractController
@@ -36,6 +39,7 @@ class ContactController extends AbstractController
     #[Route('/leave/new', methods: ['GET', 'POST'])]
     public function newLeavePeriod(
         Request $request,
+        MailerInterface $mailer,
     ): Response {
         $leavePeriod = new LeavePeriod();
         $form = $this->createForm(LeavePeriodType::class, $leavePeriod, [
@@ -44,7 +48,19 @@ class ContactController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            dump($leavePeriod);
+            $message = new Email();
+            $message
+                ->to('test@example.com')
+                ->from('no-reply@example.com')
+                ->subject('Leave Period')
+                ->text('Bonjour, une demande de congé a été posée...')
+                ->html(<<<HTML
+<div>
+<p>Bonjour,</p>
+<p>Une demande de congé a été posée...</p>
+</div>
+HTML);
+            $mailer->send($message);
         }
 
         return $this->render('contact/new_leave_period.html.twig', [
