@@ -18,6 +18,7 @@ use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Part\DataPart;
 use Symfony\Component\Mime\Part\File;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class ContactController extends AbstractController
 {
@@ -42,6 +43,7 @@ class ContactController extends AbstractController
     public function newLeavePeriod(
         Request $request,
         MailerInterface $mailer,
+        NormalizerInterface $normalizer,
         string $projectDir,
     ): Response {
         $leavePeriod = new LeavePeriod();
@@ -59,8 +61,12 @@ class ContactController extends AbstractController
                 ->subject('Leave Period')
                 ->htmlTemplate('contact/mail.html.twig')
                 ->textTemplate('contact/mail.txt.twig')
+                /*
+                 * As LeavePeriod has a File property, it should be
+                 * normalized before Messenger serialization.
+                 */
                 ->context([
-                    'leave_period' => $leavePeriod,
+                    'leave_period' => $normalizer->normalize($leavePeriod),
                 ]);
 
             $message->addPart(new DataPart(new File($projectDir.'/assets/images/symfony.svg'), 'logo', 'image/svg+xml'));
