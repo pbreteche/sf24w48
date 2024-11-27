@@ -6,6 +6,7 @@ use App\Model\LeavePeriod;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class LeavePeriodType extends AbstractType
 {
@@ -16,6 +17,7 @@ class LeavePeriodType extends AbstractType
                 'required' => false,
             ])
             ->add('dateRange')
+            ->add('supportingFile', VichFileType::class)
         ;
     }
 

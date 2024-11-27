@@ -57,6 +57,10 @@ class ContactController extends AbstractController
                 ->context([
                     'leave_period' => $leavePeriod,
                 ]);
+            if ($leavePeriod->getSupportingFile()) {
+                $message->attachFromPath($leavePeriod->getSupportingFile()->getPathname());
+            }
+
             $mailer->send($message);
         }
 
