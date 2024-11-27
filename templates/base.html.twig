@@ -12,7 +12,7 @@
         {% endblock %}
     </head>
     <body class="container">
-    <form class="row row-cols-lg-auto" action="{{ path('app_locale_set') }}" method="post">
+    <form class="row row-cols-lg-auto logo" action="{{ path('app_locale_set') }}" method="post">
         <label class="form-label" for="locale-selector">Langue</label>
         <select class="form-select" name="locale" id="locale-selector">
             <option value="fr">{{ 'fr' | locale_name }}</option>
