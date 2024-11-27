@@ -9,12 +9,11 @@ use App\Form\LeavePeriodType;
 use App\Model\Contact;
 use App\Model\ContactType as ModelContactType;
 use App\Model\LeavePeriod;
-use Masterminds\HTML5;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Attribute\Route;
 
 class ContactController extends AbstractController
@@ -48,18 +47,16 @@ class ContactController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $message = new Email();
+            $message = new TemplatedEmail();
             $message
                 ->to('test@example.com')
                 ->from('no-reply@example.com')
                 ->subject('Leave Period')
-                ->text('Bonjour, une demande de congé a été posée...')
-                ->html(<<<HTML
-<div>
-<p>Bonjour,</p>
-<p>Une demande de congé a été posée...</p>
-</div>
-HTML);
+                ->htmlTemplate('contact/mail.html.twig')
+                ->textTemplate('contact/mail.txt.twig')
+                ->context([
+                    'leave_period' => $leavePeriod,
+                ]);
             $mailer->send($message);
         }
 
