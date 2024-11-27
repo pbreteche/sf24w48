@@ -7,3 +7,7 @@
     <button class="btn btn-primary">Valider</button>
     {{ form_end(form) }}
 {% endblock %}
+
+{% block importmap %}
+    {{ importmap(['app', 'form']) }}
+{% endblock %}
