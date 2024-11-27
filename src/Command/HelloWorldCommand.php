@@ -9,6 +9,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ChoiceQuestion;
+use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 #[AsCommand(
@@ -61,6 +62,20 @@ class HelloWorldCommand extends Command
             'U' => mb_strtoupper($name),
             default => $name,
         };
+
+        $question = new Question('This is a question with validation. What do you think ?');
+        $question->setValidator(function (string $answer) {
+            if (2 >= mb_strlen($answer)) {
+                throw new \RuntimeException('The answer is too short.');
+            }
+
+            return $answer;
+        });
+        $question->setMaxAttempts(3);
+        $answer = $io->askQuestion($question);
+        if (!$answer) {
+            return Command::FAILURE;
+        }
 
         $io->success(sprintf('Hello, %s!', $name));
 
