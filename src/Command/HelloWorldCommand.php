@@ -8,6 +8,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 #[AsCommand(
@@ -39,14 +40,27 @@ class HelloWorldCommand extends Command
             $io->note(sprintf('You passed an argument: %s', $name));
         }
 
-        if ($c = $input->getOption('case')) {
-            $io->note(sprintf('You passed "case" option: %s', $c));
-            $name = match ($c) {
-                'L' => mb_strtolower($name),
-                'U' => mb_strtoupper($name),
-                default => $name,
-            };
+        $c = $input->getOption('case');
+
+        if (!$c) {
+            $c = $io->choice('Souhaitez-vous un changement de casse ?', [
+                'U' => 'Casse haute',
+                'L' => 'casse basse',
+                'n' => 'pas de changement',
+            ]);
+
+            $c = $io->askQuestion(new ChoiceQuestion('Souhaitez-vous un changement de casse ?', [
+                'U' => 'Casse haute',
+                'L' => 'casse basse',
+                'n' => 'pas de changement',
+            ]));
         }
+
+        $name = match ($c) {
+            'L' => mb_strtolower($name),
+            'U' => mb_strtoupper($name),
+            default => $name,
+        };
 
         $io->success(sprintf('Hello, %s!', $name));
 
