@@ -14,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Part\DataPart;
 use Symfony\Component\Mime\Part\File;
 use Symfony\Component\Routing\Attribute\Route;
@@ -50,9 +51,10 @@ class ContactController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $to = new Address('test@example.com', 'Mr Test');
             $message = new TemplatedEmail();
             $message
-                ->to('test@example.com')
+                ->to($to)
                 ->from('no-reply@example.com')
                 ->subject('Leave Period')
                 ->htmlTemplate('contact/mail.html.twig')
