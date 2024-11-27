@@ -14,6 +14,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Part\DataPart;
+use Symfony\Component\Mime\Part\File;
 use Symfony\Component\Routing\Attribute\Route;
 
 class ContactController extends AbstractController
@@ -39,6 +41,7 @@ class ContactController extends AbstractController
     public function newLeavePeriod(
         Request $request,
         MailerInterface $mailer,
+        string $projectDir,
     ): Response {
         $leavePeriod = new LeavePeriod();
         $form = $this->createForm(LeavePeriodType::class, $leavePeriod, [
@@ -57,6 +60,10 @@ class ContactController extends AbstractController
                 ->context([
                     'leave_period' => $leavePeriod,
                 ]);
+
+            $message->addPart(new DataPart(new File($projectDir.'/assets/images/symfony.svg'), 'logo', 'image/svg+xml'));
+
+
             if ($leavePeriod->getSupportingFile()) {
                 $message->attachFromPath($leavePeriod->getSupportingFile()->getPathname());
             }
