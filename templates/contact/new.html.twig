@@ -23,6 +23,9 @@
 
     {% set canvas_height = 25 %}
     <twig:Signature :height="canvas_height" id="signature-pad-component" />
+    {% for range in ranges %}
+        <twig:WorkingDays :range="range" />
+    {% endfor %}
 {% endblock %}
 
 {% block importmap %}

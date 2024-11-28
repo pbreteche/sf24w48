@@ -1,0 +1,6 @@
+<div{{ attributes }}>
+    <p>
+        Le nombre de jours travaillés entre {{ this.range.from | format_date('short') }} et {{ this.range.to | format_date('short') }}
+        est {{ this.count | format_number }} jours.
+    </p>
+</div>

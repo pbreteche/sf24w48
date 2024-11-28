@@ -8,6 +8,7 @@ use App\Form\ContactType;
 use App\Form\LeavePeriodType;
 use App\Model\Contact;
 use App\Model\ContactType as ModelContactType;
+use App\Model\DateRange;
 use App\Model\LeavePeriod;
 use App\Service\ContactDeliver;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -38,6 +39,18 @@ class ContactController extends AbstractController
 
         return $this->render('contact/new.html.twig', [
             'form' => $form,
+            'ranges' => [
+                new DateRange(new \DateTimeImmutable('2024-11-25'), new \DateTimeImmutable('2024-11-30')),
+                new DateRange(new \DateTimeImmutable('2024-01-01'), new \DateTimeImmutable('2024-12-31')),
+            ] + iterator_to_array((function () {
+                    for ($i = 1; $i <= 12; $i++) {
+                        $firstDayOfMonth = new \DateTimeImmutable('2024-' . $i . '-01');
+                        yield new DateRange(
+                            $firstDayOfMonth,
+                            $firstDayOfMonth->modify('last day of this month'),
+                        );
+                    }
+                }) ()),
         ]);
     }
 
