@@ -7,6 +7,12 @@ use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 #[AsTwigComponent]
 final class Signature
 {
-    public int $height = 150;
-    public int $width = 300;
+    public int $height;
+    public int $width;
+
+    public function mount(int $height = 150, int $width = 300): void
+    {
+        $this->height = max($height, 50);
+        $this->width = max($width, 50);
+    }
 }

@@ -21,7 +21,8 @@
         </select>
     </article>
 
-    <twig:Signature height="120" />
+    {% set canvas_height = 25 %}
+    <twig:Signature :height="canvas_height" id="signature-pad-component" />
 {% endblock %}
 
 {% block importmap %}
