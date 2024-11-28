@@ -1,0 +1,8 @@
+<div{{ attributes }}>
+    <div data-controller="signature">
+        <canvas data-signature-target="canvas" height="{{ this.height }}" {{ this.width }}></canvas>
+        <button disabled data-signature-target="button" data-action="click->signature#print">Envoyer</button>
+        <button data-action="click->signature#clear">Effacer</button>
+        <output data-signature-target="output"></output>
+    </div>
+</div>

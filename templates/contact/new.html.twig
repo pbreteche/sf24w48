@@ -21,12 +21,7 @@
         </select>
     </article>
 
-    <div data-controller="signature">
-        <canvas data-signature-target="canvas"></canvas>
-        <button disabled data-signature-target="button" data-action="click->signature#print">Envoyer</button>
-        <button data-action="click->signature#clear">Effacer</button>
-        <output data-signature-target="output"></output>
-    </div>
+    <twig:Signature height="120" />
 {% endblock %}
 
 {% block importmap %}
