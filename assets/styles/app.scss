@@ -1,4 +1,14 @@
 body {
     background-color: skyblue;
 }
+
+canvas {
+    border: 1px solid black;
+    box-shadow: 0 0 5px black inset;
+}
+
+output {
+    word-break: break-all;
+}
+
 @import 'theme/symfony';
