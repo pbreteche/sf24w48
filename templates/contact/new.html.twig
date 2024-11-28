@@ -7,9 +7,12 @@
     <button class="btn btn-primary">Valider</button>
     {{ form_end(form) }}
 
+    <twig:ColorSelector />
+
     <article data-controller="hello">
         <h1>First Stimulus example</h1>
-        <input type="number" data-hello-target="quantity">
+        <label for="source-quantity"></label>
+        <input type="number" data-hello-target="quantity" id="source-quantity">
         <button data-action="click->hello#convert">Compute</button>
         <output data-hello-target="result"></output>
         <label for="unit-select">Unit selector</label>

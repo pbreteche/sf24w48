@@ -1,0 +1,10 @@
+<div{{ attributes }}>
+    <label for="color-search">Recherche de couleur</label>
+    <input id="color-search" type="search" data-model="colorSearch" >
+
+    <ul>
+        {% for color in this.colorList %}
+        <li>{{ color }}</li>
+        {% endfor %}
+    </ul>
+</div>
