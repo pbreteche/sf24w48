@@ -1,4 +1,4 @@
-<div{{ attributes }}>
+<div {{ attributes.defaults(stimulus_controller('article-form')) }}>
     <h2>Création d'un article</h2>
     {{ form_start(form, {
         attr: {
@@ -6,7 +6,18 @@
             'data-live-action-param': 'save'
         }
     }) }}
-    {{ form_widget(form) }}
+    {{ form_row(form.title, {
+        attr: {
+            'data-article-form-target': 'title',
+        }
+    }) }}
+    {{ form_row(form.body, {
+        attr: {
+            'data-article-form-target': 'body'
+        }
+    }) }}
+    {{ form_row(form.state) }}
+    {{ form_rest(form) }}
     <button>Valider</button>
     {{ form_end(form) }}
 </div>

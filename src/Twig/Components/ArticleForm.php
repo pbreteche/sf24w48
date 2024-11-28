@@ -20,7 +20,7 @@ final class ArticleForm extends AbstractController
     use DefaultActionTrait;
     use ComponentWithFormTrait;
 
-    #[LiveProp]
+    #[LiveProp(writable: true)]
     public ?Article $initialData = null;
 
     protected function instantiateForm(): FormInterface
