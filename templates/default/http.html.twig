@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <table class="table table-bordered">
+        {% for composteur in composteurs %}
+        <tr>
+            <td><a href="{{ composteur.lien }}">{{ composteur.nom }}</a></td>
+            <td>{{ composteur.categorie }}</td>
+            <td>{{ composteur.adresse }}</td>
+            <td>{{ composteur.lieu }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}
+
