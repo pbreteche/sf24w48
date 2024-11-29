@@ -1,0 +1,5 @@
+article:
+  state:
+    draft: brouillon
+    published: publié
+    trashed: jeté

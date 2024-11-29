@@ -1,0 +1,5 @@
+article:
+  state:
+    draft: draft
+    published: published
+    trashed: trashed

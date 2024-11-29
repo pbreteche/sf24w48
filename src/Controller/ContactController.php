@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\Enums\ArticleState;
 use App\Form\ContactType;
 use App\Form\LeavePeriodType;
 use App\Model\Contact;
@@ -23,6 +24,7 @@ use Symfony\Component\Mime\Part\File;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ContactController extends AbstractController
 {
@@ -55,17 +57,6 @@ class ContactController extends AbstractController
                         );
                     }
                 }) ()),
-        ]);
-    }
-
-    #[Route('/article/export', methods: 'GET')]
-    public function export(
-        ArticleRepository $articleRepository,
-    ): Response {
-        $articles = $articleRepository->findBy([], limit: 10);
-
-        return $this->json($articles, context: [
-            AbstractNormalizer::GROUPS => ['teaser']
         ]);
     }
 
