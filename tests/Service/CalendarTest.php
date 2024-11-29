@@ -8,14 +8,19 @@ use PHPUnit\Framework\TestCase;
 
 class CalendarTest extends TestCase
 {
+    private Calendar $calendar;
+
+    protected function setUp(): void
+    {
+        $this->calendar = new Calendar();
+    }
 
     /**
      * @dataProvider workingDaysProvider
      */
     public function testCountWorkingDays($from, $to, $expected)
     {
-        $calendar = new Calendar();
-        $result = $calendar->countWorkingDays(new DateRange(
+        $result = $this->calendar->countWorkingDays(new DateRange(
             new \DateTimeImmutable($from),
             new \DateTimeImmutable($to),
         ));
@@ -24,9 +29,8 @@ class CalendarTest extends TestCase
 
     public function testInvalidDateRange()
     {
-        $calendar = new Calendar();
         $this->expectException(\InvalidArgumentException::class);
-        $calendar->countWorkingDays(new DateRange(
+        $this->calendar->countWorkingDays(new DateRange(
             new \DateTimeImmutable('2024-01-10'),
             new \DateTimeImmutable('2024-01-01'),
         ));
