@@ -35,6 +35,8 @@ class ContactController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $deliver->deliver($contact);
+
+            return $this->redirectToRoute('app_contact_new');
         }
 
         return $this->render('contact/new.html.twig', [
