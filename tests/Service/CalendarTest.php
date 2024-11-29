@@ -17,9 +17,19 @@ class CalendarTest extends TestCase
         $calendar = new Calendar();
         $result = $calendar->countWorkingDays(new DateRange(
             new \DateTimeImmutable($from),
-            new \DateTimeImmutable($to)
+            new \DateTimeImmutable($to),
         ));
         $this->assertEquals($expected, $result);
+    }
+
+    public function testInvalidDateRange()
+    {
+        $calendar = new Calendar();
+        $this->expectException(\InvalidArgumentException::class);
+        $calendar->countWorkingDays(new DateRange(
+            new \DateTimeImmutable('2024-01-10'),
+            new \DateTimeImmutable('2024-01-01'),
+        ));
     }
 
     public function workingDaysProvider(): array

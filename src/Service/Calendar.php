@@ -8,6 +8,9 @@ class Calendar
 {
     public function countWorkingDays(DateRange $dateRange): int
     {
+        if ($dateRange->getFrom() > $dateRange->getTo()) {
+            throw new \InvalidArgumentException();
+        }
         $count = 0;
         for ($d = $dateRange->getFrom(); $d <= $dateRange->getTo(); $d = $d->modify('+1 day')) {
             if ($this->isWorkingDay($d)) {
