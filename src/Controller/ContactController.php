@@ -10,6 +10,7 @@ use App\Model\Contact;
 use App\Model\ContactType as ModelContactType;
 use App\Model\DateRange;
 use App\Model\LeavePeriod;
+use App\Repository\ArticleRepository;
 use App\Service\ContactDeliver;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -54,6 +55,15 @@ class ContactController extends AbstractController
                     }
                 }) ()),
         ]);
+    }
+
+    #[Route('/article/export', methods: 'GET')]
+    public function export(
+        ArticleRepository $articleRepository,
+    ): Response {
+        $articles = $articleRepository->findBy([], limit: 10);
+
+        return $this->json($articles);
     }
 
     #[Route('/leave/new', methods: ['GET', 'POST'])]
