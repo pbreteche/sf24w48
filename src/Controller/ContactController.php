@@ -21,6 +21,7 @@ use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Part\DataPart;
 use Symfony\Component\Mime\Part\File;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class ContactController extends AbstractController
@@ -63,7 +64,9 @@ class ContactController extends AbstractController
     ): Response {
         $articles = $articleRepository->findBy([], limit: 10);
 
-        return $this->json($articles);
+        return $this->json($articles, context: [
+            AbstractNormalizer::GROUPS => ['teaser']
+        ]);
     }
 
     #[Route('/leave/new', methods: ['GET', 'POST'])]
