@@ -42,9 +42,7 @@ class DefaultController extends AbstractController
            return true;
         });
 
-
         $myDedicatedCache->invalidateTags(['tag-1', 'tag-2']);
-        dump($heavyComputedData);
 
         return $this->render('default/index.html.twig');
     }
