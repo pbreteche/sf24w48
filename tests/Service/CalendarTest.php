@@ -9,19 +9,24 @@ use PHPUnit\Framework\TestCase;
 class CalendarTest extends TestCase
 {
 
-    public function testCountWorkingDays()
+    /**
+     * @dataProvider workingDaysProvider
+     */
+    public function testCountWorkingDays($from, $to, $expected)
     {
         $calendar = new Calendar();
         $result = $calendar->countWorkingDays(new DateRange(
-            new \DateTimeImmutable('2024-05-01'),
-            new \DateTimeImmutable('2024-05-31')
+            new \DateTimeImmutable($from),
+            new \DateTimeImmutable($to)
         ));
-        $this->assertEquals(20, $result);
+        $this->assertEquals($expected, $result);
+    }
 
-        $result = $calendar->countWorkingDays(new DateRange(
-            new \DateTimeImmutable('2024-07-08'),
-            new \DateTimeImmutable('2024-07-14')
-        ));
-        $this->assertEquals(5, $result);
+    public function workingDaysProvider(): array
+    {
+        return [
+            ['2024-05-01', '2024-05-31', 20],
+            ['2024-07-08', '2024-07-14', 5],
+        ];
     }
 }
