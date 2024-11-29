@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Service\HeavyDataComputer;
+use App\Service\ManagerDayOffCalculator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,6 +24,7 @@ class DefaultController extends AbstractController
         TagAwareCacheInterface $myDedicatedCache,
         HeavyDataComputer $dataComputer,
         Request $request,
+        ManagerDayOffCalculator $managerDayOffCalculator,
     ): Response {
         $heavyComputedData = $cache->get('heavy-computed-data', function (ItemInterface $item) use ($dataComputer) {
             $item->expiresAfter(3600);
