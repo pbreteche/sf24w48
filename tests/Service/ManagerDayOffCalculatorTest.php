@@ -2,6 +2,7 @@
 
 namespace App\Tests\Service;
 
+use App\Model\DateRange;
 use App\Service\Calendar;
 use App\Service\ManagerDayOffCalculator;
 use PHPUnit\Framework\TestCase;
@@ -12,13 +13,14 @@ class ManagerDayOffCalculatorTest extends TestCase
 
     public function setUp(): void
     {
-        $stub = $this->createStub(Calendar::class);
+        $mock = $this->createMock(Calendar::class);
 
-        // Configure the stub.
-        $stub->method('countWorkingDays')
+        $mock->expects($this->once())
+            ->method('countWorkingDays')
+            ->with($this->isInstanceOf(DateRange::class))
             ->willReturn(253);
 
-        $this->managerDayOffCalculator = new ManagerDayOffCalculator($stub);
+        $this->managerDayOffCalculator = new ManagerDayOffCalculator($mock);
     }
 
     public function testCalculate()
